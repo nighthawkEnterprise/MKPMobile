@@ -16,7 +16,6 @@ export class HomeScreen extends Component {
     console.log("making the call");
     axios.get(`http://drupal7.mkp.org/api/news`)
     .then(response => {
-      console.log("RESPONSE: ", response);
       const news= response.data.news;
       console.log(news[0].article);
       console.log(news[0].article.body);

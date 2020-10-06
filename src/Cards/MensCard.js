@@ -23,7 +23,7 @@ class MensCard extends Component {
         backgroundColor: '#f8dc94',
       }}>
         <View style={{width: '40%', height: 80, backgroundColor: '#f8dc94', justifyContent: 'center'}}>
-          <UserAvatar style={{alignSelf:'center', fontSize: 20}}size={80} name={title}  />
+          <UserAvatar style={{alignSelf:'center', fontSize: 20, width: 90}} size={80} name={title}  />
         </View>
         <View style={{width: '60%', height: 80,flexDirection: 'column', alignItems: 'center',justifyContent: 'space-around',backgroundColor: '#5573AA'}}>
           <Text style={{color:'white', letterSpacing: 2,  textAlign: 'center', fontSize: 11}}> {title} </Text>

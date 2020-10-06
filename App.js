@@ -9,6 +9,7 @@ import {CustomHeader, CustomDrawerContent} from './src';
 import {HomeScreen, HomeScreenDetail, EventScreen, EventScreenDetail, MensScreen, MensScreenDetail, WarriorScreen, WarriorScreenDetail } from './src/tab';
 import {NotificationsScreen} from './src/drawer';
 import {RegistrationScreen, LoginScreen} from './src/auth';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 

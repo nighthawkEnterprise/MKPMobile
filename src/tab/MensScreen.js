@@ -8,24 +8,24 @@ export class MensScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [],
+      groups: [],
     };
   }
   componentDidMount() {
     console.log("making the call");
     axios.get(`http://drupal7.mkp.org/api/mobile-igroup`)
     .then(response => {
-      // console.log("RESPONSE: ", response);
-      const events= response.data.nodes;
-      console.log(events[2]);
-      console.log(events[1].node.Title);
-      console.log(events[1].node.["Field frequency value"]);
-      console.log(events[1].node.["Field night value"]);
-      console.log(events[1].node.["Field meeting time value"]);
+      console.log("RESPONSE: ", response);
+      const groups= response.data.nodes;
+      console.log(groups[2]);
+      console.log(groups[1].node.title);
+      console.log(groups[1].node.frequency);
+      console.log(groups[1].node.dow);
+      console.log(groups[1].node.time);
 
-      console.log(events[0].node.Title);
+      console.log(groups[0].node.Title);
 
-      this.setState({events: events});
+      this.setState({groups: groups});
     })
     .catch(err => {
       console.log(err);
@@ -36,19 +36,19 @@ export class MensScreen extends Component {
       <View style={{ flex: 1, marginTop: 30}}>
       <CustomHeader title="I-Groups" isHome={true} navigation={this.props.navigation}/>
       <SearchBar placeholder="Search I-Groups..." inputContainerStyle={{backgroundColor: '#F5F5F5', marginTop: 5}} inputStyle={{backgroundColor: '#F5F5F5'}} platform={Platform.OS}/>
-      {this.state.events.length > 0 ?
+      {this.state.groups.length > 0 ?
         <FlatList
-          data={this.state.events}
-          keyExtractor={result => result.node.["NID"]}
+          data={this.state.groups}
+          keyExtractor={result => result.node.id}
           renderItem={({item}) => {
             return (
                 <TouchableOpacity style={{marginTop: 20}}
                   onPress={() => this.props.navigation.navigate('MensScreenDetail')}>
                   <MensCard
-                    title={item.node.Title}
-                    frequency={item.node.["Field frequency value"]}
-                    night={item.node.["Field night value"]}
-                    meetingTime={item.node.["Field meeting time value"]}/>
+                    title={item.node.title}
+                    frequency={item.node.frequency}
+                    night={item.node.dow}
+                    meetingTime={item.node.time}/>
                 </TouchableOpacity>
             )
           }} />

@@ -24,7 +24,7 @@ class WarriorCard extends Component {
         <View style={{width: '40%', height: 80, backgroundColor: '#f8dc94', justifyContent: 'center'}}>
           <UserAvatar style={{alignSelf:'center'}}size={80} name={fullname} />
         </View>
-        <View style={{width: '60%', height: 80,flexDirection: 'column', alignItems: 'center',justifyContent: 'space-around',backgroundColor: '#5573AA'}}>
+        <View style={{width: '60%', height: 80,flexDirection: 'column', alignItems: 'center',justifyContent: 'space-around',backgroundColor: '#5573AA', padding: 5}}>
             <Text style={{color:'white', fontWeight: 'bold', letterSpacing: 2,  textAlign: 'center'}}> {fullname} </Text>
             <Text style={{color:'white', letterSpacing: 1}}> {city}</Text>
             <Text style={{color:'white', letterSpacing: 1}}> {phone} </Text>

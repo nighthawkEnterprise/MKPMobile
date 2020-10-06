@@ -8,7 +8,7 @@ class NewsCard extends Component {
     body = this.props.body;
     return(
       <View style={{padding: 10}}>
-          <Card style={{marginTop: 20, borderWidth: 1,padding: 15, shadowColor: 'black', shadowOffset:{width: 10, height: 12}, shadowRadius: 2, shadowOpacity: .8, padding: 15}}>
+          <Card style={{marginTop: 20,padding: 15, shadowColor: 'black', shadowOffset:{width: 10, height: 12}, shadowRadius: 2, shadowOpacity: .8, padding: 15}}>
             <CardImage
               source={{uri: imgSrc}}
               title={title}
