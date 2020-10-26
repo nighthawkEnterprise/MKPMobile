@@ -18,6 +18,6 @@ Personas
 2. 18-35 year old new member that is a new member, and wants to engage more with finding an i-group, look up upcoming events, find and call points of contacts that he may not have remembered.
 
 
-![I-Groups](https://user-images.githubusercontent.com/29704847/97125210-6658f480-16f0-11eb-8702-7a2933cfbc39.jpg)
+![I-Groups](https://user-images.githubusercontent.com/29704847/97125210-6658f480-16f0-11eb-8702-7a2933cfbc39.jpg?v=4&s=200)
 
 
