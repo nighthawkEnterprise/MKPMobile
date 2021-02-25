@@ -6,47 +6,47 @@ import {createStackNavigator} from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {CustomHeader, CustomDrawerContent} from './src';
-import {HomeScreen, HomeScreenDetail, EventScreen, EventScreenDetail, MensScreen, MensScreenDetail, WarriorScreen, WarriorScreenDetail } from './src/tab';
+import {HomeScreen, HomeScreenDetail, EventScreen, EventScreenDetail, MensScreen, MensScreenDetail, WarriorScreen, WarriorScreenDetail, ResourceScreen } from './src/tab';
 import {NotificationsScreen} from './src/drawer';
 import {RegistrationScreen, LoginScreen} from './src/auth';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-
-
 function TabNavigator() {
+  console.log("CHECK");
   return(
     <Tab.Navigator barStyle={{backgroundColor: '#224077'}} screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = focused ? require('./src/images/home-white.png') : require('./src/images/home-black.png');
+            iconName = focused ? 'home' : 'home';
           } else if (route.name === 'Warriors') {
-            iconName = focused ? require('./src/images/brother-white.png') : require('./src/images/brother-black.png');
+            iconName = focused ? 'user' : 'user';
           } else if (route.name === 'Events') {
-            iconName = focused ? require('./src/images/event-white.png') : require('./src/images/event-black.png');
+            iconName = focused ? 'calendar' : 'calendar';
           } else if (route.name === 'MensGroup') {
-            iconName = focused ? require('./src/images/group-white.png') : require('./src/images/group-black.png');
+            iconName = focused ? 'users' : 'users';
           }
+          // else if (route.name === 'Resources') {
+          //   iconName = focused ? 'file' : 'file';
+          // }
 
           // You can return any component that you like here!
-          return <Image source={iconName} style={{width:20, height: 20}} resizeMode="contain" />;
+          return <Icon name={iconName} color="#dfdfe5" style={{width:20, height: 20, backgroundColor: 'transparent'}} resizeMode="contain" size={20}/>;
         },
       })}
       tabBarOptions={{
         activeTintColor: 'white',
         inactiveTintColor: 'white',
         style: {
-          backgroundColor: 'lightBlue'
+          backgroundColor: 'white'
         },
       }}>
-      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Home" children={() => <HomeStack check={true} /> } />
       <Tab.Screen name="Warriors" component={WarriorStack} />
       <Tab.Screen name="Events" component={EventsStack} />
       <Tab.Screen name="MensGroup" component={MensStack} />
-
     </Tab.Navigator>
   )
 }
@@ -61,7 +61,7 @@ const StackHome = createStackNavigator();
 const StackWarrior = createStackNavigator();
 const StackEvent = createStackNavigator();
 const StackGroups = createStackNavigator();
-
+const StackResources = createStackNavigator();
 function HomeStack() {
   return (
     <StackHome.Navigator>
@@ -90,6 +90,7 @@ function EventsStack() {
   )
 }
 
+
 function MensStack() {
   return (
     <StackGroups.Navigator>
@@ -103,7 +104,7 @@ function MensStack() {
 const Drawer = createDrawerNavigator();
 function DrawerNavigator({navigation}) {
    return(
-     <Drawer.Navigator initialRouteName="Notifications" drawerPosition="right" drawerStyle={{width: 200}} drawerContent={() => <CustomDrawerContent navigation={navigation} />}>
+     <Drawer.Navigator initialRouteName="Notifications" drawerPosition="right" drawerStyle={{width: 130, backgroundColor: '#e8e8e8'}} drawerContent={() => <CustomDrawerContent navigation={navigation} />}>
        <Drawer.Screen name="MenuTab" component={TabNavigator} />
        <Drawer.Screen name="NotificationsScreen" component={NotificationsScreen} />
        <Drawer.Screen name="Logout" component={LoginScreen} />
@@ -118,9 +119,7 @@ export default function App() {
       <StackApp.Navigator initalRouteName="Login">
         <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}/>
         <StackApp.Screen name="HomeApp" component={DrawerNavigator} options={navOptionHandler}/>
-
         <StackApp.Screen name="Register" component={RegistrationScreen} options={navOptionHandler}/>
-
       </StackApp.Navigator>
     </NavigationContainer>
   );

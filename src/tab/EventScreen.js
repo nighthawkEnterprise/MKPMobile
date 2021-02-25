@@ -1,56 +1,96 @@
 import React, {Component} from 'react';
-import { Text, View, SafeAreaView, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
+import { Text, View, SafeAreaView, TouchableOpacity, FlatList, StatusBar, ActivityIndicator } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import {CustomHeader} from '../index';
 import axios from 'axios';
 import EventCard from '../Cards/EventCard'
+import DelayInput from "react-native-debounce-input";
 
 export class EventScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       events: [],
+      search: '',
+      loading: true,
+      noResults: false,
     };
+    this.updateSearch = this.updateSearch.bind(this);
+    this.callEvents = this.callEvents.bind(this);
   }
-  componentDidMount() {
-    console.log("making the call");
-    axios.get(`http://drupal7.mkp.org/api/mobile-event`)
+  updateSearch(search) {
+    this.setState({search: search, loading: true, noResults: false});
+  }
+  componentDidUpdate() {
+    if(this.state.loading === true) {
+      console.log("Calling Events");
+      this.callEvents(this.state.search);
+    }
+  }
+  callEvents() {
+    let finalSearch ='';
+    let search = this.state.search;
+    for(var i =0 ; i < search.length; i++) {
+      if(search[i] == ' ') {
+        finalSearch += '+';
+      } else {
+        finalSearch += search[i]
+      }
+    }
+    axios.get(`http://drupal7.mkp.org/api/mobile-event?combine=${finalSearch}`)
     .then(response => {
-      console.log("RESPONSE: ", response.data.eventlisting[0].event.area);
-      console.log("RESPONSE: ", response.data.eventlisting[0].event.start_date);
-      console.log("RESPONSE: ", response.data.eventlisting[0].event.type);
-      console.log("RESPONSE: ", response.data.eventlisting[0].event.title);
-      const events= response.data.eventlisting;
-      this.setState({events: events});
+      const events= response.data.event;
+      console.log("RESPONSE.DATA.Events: ", events.length);
+      if(events.length > 0 ) {
+        this.setState({events: events, loading: false, noResults: false});
+      } else {
+        this.setState({events: events, noResults: true, loading: false})
+      }
     })
     .catch(err => {
       console.log(err);
     })
   }
+  componentDidMount() {
+    console.log("making the call");
+    this.callEvents();
+  }
   render() {
+    StatusBar.setHidden(true, 'none');
+    console.log("this.state.loading: ", this.state.loading);
+    // <SearchBar placeholder="Search Upcoming Events..." inputContainerStyle={{backgroundColor: '#F5F5F5', marginTop: 5}} inputStyle={{backgroundColor: '#F5F5F5'}} platform={Platform.OS}/>
     return (
-      <View style={{ flex: 1, marginTop: 30}}>
+      <View style={{ flex: 1}}>
       <CustomHeader title="Events" isHome={true} navigation={this.props.navigation}/>
-      <SearchBar placeholder="Search Upcoming Events..." inputContainerStyle={{backgroundColor: '#F5F5F5', marginTop: 5}} inputStyle={{backgroundColor: '#F5F5F5'}} platform={Platform.OS}/>
-      {this.state.events.length > 0 ?
+      <View style={{backgroundColor: 'white', padding: 5}}>
+        <DelayInput placeholder="Search Events..."  onChangeText={this.updateSearch} delayedTimeout={500} style={{height: 50, fontSize: 18,  backgroundColor: '#F5F5F5'}} minLength={3} />
+      </View>
+      {!this.state.loading && this.state.events.length > 0 ?
         <FlatList
           data={this.state.events}
           keyExtractor={result => result.event.title}
           renderItem={({item}) => {
             return (
-
-                <TouchableOpacity style={{marginTop: 20}}
-                  onPress={() => this.props.navigation.navigate('EventScreenDetail')}>
                   <EventCard
                     title={item.event.title}
                     start={item.event.start_date}
                     area={item.event.area}
-                    type={item.event.type}/>
-                </TouchableOpacity>
+                    type={item.event.type}
+                    image={item.event.image}
+                    link={item.event["registration-link"]}
+                    />
             )
           }} />
           :
-          <ActivityIndicator size="large"  color="red" style={{flex: 1, justifyContent: "center", alignItems: "center"}}/>}
+          (
+            !this.state.noResults ?
+              <ActivityIndicator size="large"  color="red" style={{flex: 1, justifyContent: "center", alignItems: "center"}}/>
+            :
+              (<View> 
+                <Text> No Results Found </Text>
+              </View>)
+          )
+        }
       </View>
     );
   }
