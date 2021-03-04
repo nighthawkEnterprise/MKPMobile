@@ -13,6 +13,9 @@ class EventCard extends Component {
     type= this.props.type;
     image= this.props.image;
     link = this.props.link;
+    if(image === '') {
+      image = `http://drupal7.mkp.org/sites/default/files/event_images/2020-NWTA.png`;
+    }
     return(
       <View style={{
         flex: 1,

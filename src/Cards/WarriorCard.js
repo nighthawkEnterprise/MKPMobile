@@ -58,13 +58,13 @@ class WarriorCard extends Component {
           </View>
           <View style={{flexDirection: 'row', justifyContent: "flex-start", backgroundColor: "white", height: 35, alignItems: 'center'}}>
             <TouchableOpacity style={{ flex: 1, height: '100%', justifyContent: 'center', opacity: .7}} onPress={() => this.makeEmail(this.props.email, this.props.fname)}>
-               <Icon name="email" size={25} color="#3457d5" />
+               <Icon name="email" size={25} color="blue" />
             </TouchableOpacity>
             <TouchableOpacity style={{flex: 1, height: '100%', justifyContent: 'center', backgroundColor: 'white', opacity: .7}} onPress={() => this.makeText(this.props.phone, this.props.fname)}>
-                <Icon name="message" size={25} color="#3457d5" />
+                <Icon name="message" size={25} color="blue" />
             </TouchableOpacity>
             <TouchableOpacity style={{flex: 1, height: '100%', justifyContent: 'center', backgroundColor: 'white', opacity: .6}} onPress={() => this.makeCall(this.props.phone)}>
-                  <Icon name="phone" size={25} color="#3457d5"  />
+                  <Icon name="phone" size={25} color="blue"  />
             </TouchableOpacity>
           </View>
       </View>

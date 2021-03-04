@@ -23,7 +23,6 @@ export class EventScreen extends Component {
   }
   componentDidUpdate() {
     if(this.state.loading === true) {
-      console.log("Calling Events");
       this.callEvents(this.state.search);
     }
   }
@@ -40,7 +39,6 @@ export class EventScreen extends Component {
     axios.get(`http://drupal7.mkp.org/api/mobile-event?combine=${finalSearch}`)
     .then(response => {
       const events= response.data.event;
-      console.log("RESPONSE.DATA.Events: ", events.length);
       if(events.length > 0 ) {
         this.setState({events: events, loading: false, noResults: false});
       } else {
@@ -52,7 +50,6 @@ export class EventScreen extends Component {
     })
   }
   componentDidMount() {
-    console.log("making the call");
     this.callEvents();
   }
   render() {
@@ -70,6 +67,7 @@ export class EventScreen extends Component {
           data={this.state.events}
           keyExtractor={result => result.event.title}
           renderItem={({item}) => {
+            console.log("Event Image: ", item.event.image);
             return (
                   <EventCard
                     title={item.event.title}
@@ -86,7 +84,7 @@ export class EventScreen extends Component {
             !this.state.noResults ?
               <ActivityIndicator size="large"  color="red" style={{flex: 1, justifyContent: "center", alignItems: "center"}}/>
             :
-              (<View> 
+              (<View>
                 <Text> No Results Found </Text>
               </View>)
           )

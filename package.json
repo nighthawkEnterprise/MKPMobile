@@ -37,7 +37,6 @@
     "react-native-material-cards": "^1.0.15",
     "react-native-material-tabs": "^4.1.2",
     "react-native-paper": "^4.2.0",
-    "react-native-permissions": "^3.0.0",
     "react-native-phone-call": "^1.0.9",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",

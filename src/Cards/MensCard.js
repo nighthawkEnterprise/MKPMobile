@@ -18,66 +18,17 @@ class MensCard extends Component {
   makeCall(phone) {
     console.log(phone);
     Communications.phonecall(phone, true);
-
   }
   makeText(phone, firstName) {
     let bodyMessage = `Hi ${firstName},`;
     Communications.textWithoutEncoding(phone, body = bodyMessage);
   }
+
   makeEmail(email) {
     console.log(email);
     Communications.email([email], null, null, null, null)
+  }
 
-  }
-  handleGetDirections(latitude, longitude) {
-    const data = {
-      destination: {
-        latitude: Number(latitude),
-        longitude: Number(longitude),
-      },
-      params: [
-        {
-          key: "travelmode",
-          value: "driving"        // may be "walking", "bicycling" or "transit" as well
-        },
-        {
-          key: "dir_action",
-          value: "navigate"       // this instantly initializes navigation using the given travel mode
-        }
-      ],
-    }
-    getDirections(data);
-    console.log("In get Directions");
-  }
-  componentDidMount() {
-    this.calculate();
-  }
-  calculate = () => {
-    console.log("hello");
-    latitude = this.props.latitude;
-    longitude = this.props.longitude;
-    contactName = this.props.contactName;
-    contactPhone = this.props.contactPhone;
-    contactEmail = this.props.contactEmail;
-    currentLatitude = this.props.currentLatitude;
-    currentLongitude = this.props.currentLongitude;
-    groupLatitude= this.props.groupLatitude;
-    groupLongitude= this.props.groupLongitude;
-    if(currentLatitude !== null && currentLongitude !== null) {
-      let dis = getDistance(
-        {latitude: currentLatitude, longitude: currentLongitude},
-        {latitude: groupLatitude, longitude: groupLongitude},
-      );
-      console.log('dis::', dis);
-      dis = (dis/1609.34).toFixed(2);
-      dis = dis + ' miles';
-      this.setState({
-        dis: dis
-      })
-    }
-
-
-  }
   render() {
     StatusBar.setHidden(true, 'none');
     // console.log("PROPS: ", this.props);
@@ -85,18 +36,10 @@ class MensCard extends Component {
     frequency= this.props.frequency;
     night= this.props.night;
     meetingTime= this.props.meetingTime;
-    latitude = this.props.latitude;
-    longitude = this.props.longitude;
     contactName = this.props.contactName;
     contactPhone = this.props.contactPhone;
     contactEmail = this.props.contactEmail;
-    currentLatitude = this.props.currentLatitude;
-    currentLongitude = this.props.currentLongitude;
-    groupLatitude= this.props.groupLatitude;
-    groupLongitude= this.props.groupLongitude;
-    console.log('currentLatitude: ', currentLatitude);
-    console.log('currentLatitude: ', currentLongitude);
-    console.log('this.state.dis: ', this.state.dis);
+
     return(
       <View style= {{ flexDirection: 'column', justifyContent: 'center', alignItems: 'stretch', marginRight: 10}}>
       <View style={{
@@ -118,9 +61,6 @@ class MensCard extends Component {
       </View>
     </View>
     <View style={{flexDirection: 'row', justifyContent: "center", backgroundColor: "white", height: 35, alignItems: 'center'}}>
-      <TouchableOpacity style={{flex: 2, height: '100%',alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', opacity: .7}} disabled>
-            <Text style={{fontWeight: 'bold'}}> {this.state.dis} </Text>
-      </TouchableOpacity>
       <TouchableOpacity style={{ flex: 1, height: '100%', justifyContent: 'center', opacity: .7}} onPress={() => this.makeEmail(this.props.contactEmail, this.props.contactName)}>
          <Icon name="email" size={25} color="blue" />
       </TouchableOpacity>

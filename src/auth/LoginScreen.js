@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, SafeAreaView, TouchableOpacity, TextInput, Button, Image, StatusBar, PermissionsAndroid} from 'react-native';
+import { Text, View, SafeAreaView, TouchableOpacity, TextInput, Button, Image, StatusBar, StyleSheet} from 'react-native';
 import {Input} from 'react-native-elements';
 import {CustomHeader} from '../index';
 import axios from 'axios';
@@ -14,32 +14,7 @@ export class LoginScreen  extends Component {
     }
     login = this.login.bind(this);
   }
-  requestCameraPermission = async () => {
-    try {
-       const granted = await PermissionsAndroid.request(
-         PermissionsAndroid.PERMISSIONS.CAMERA,
-         {
-           title: "Location Access",
-           message:
-             "MKP Mobile needs your current location " +
-             "so that it can find the closest I-groups near you",
-           buttonNeutral: "Ask Me Later",
-           buttonNegative: "Cancel",
-           buttonPositive: "OK"
-         }
-       );
-       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-         console.log("You can use the camera");
-       } else {
-         console.log("Camera permission denied");
-       }
-     } catch (err) {
-       console.warn(err);
-     }
-  }
-  componentDidMount() {
-    this.requestCameraPermission();
-  }
+
   login = () => {
     axios.get(`http://drupal7.mkp.org/api/auth?uname=${this.state.username}&pw=${this.state.password}`)
     .then(res => {
@@ -60,9 +35,14 @@ export class LoginScreen  extends Component {
   handlePassword = (e) => {
     this.setState({password: e})
   }
-
+  componentDidMount() {
+    console.log("PLATFORM: ", Platform.OS);
+  }
   render() {
     StatusBar.setHidden(true, 'none');
+    let ios = false;
+    Platform.OS === 'ios' ? ios = true : ios= false
+    console.log("IOS: ", ios);
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
         <View style={{flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5', height: 200}}>
@@ -86,10 +66,9 @@ export class LoginScreen  extends Component {
                 secureTextEntry={true}
               />
               <View style={{ width: 250, marginTop: 50}}>
-                <Button title="Login" color='#224077' onPress={() => this.login()}/>
-              </View>
-              <View style={{ width: 250, marginTop: 50}}>
-                <Button title="Login" color='#224077' onPress={() => this.ask()}/>
+                {!ios ? <Button title="Login" color='#224077' onPress={() => this.login()}/> :
+                    ( <AppButton title="Login" size="sm" backgroundColor="#224077" onPress={() => this.login()}/>)
+                }
               </View>
               <View style={{marginTop: 20, width: 250}}>
                {this.state.errorMessage === '' ? null :  <Button  color="red" style={{opacity: .3}} title={this.state.errorMessage}  />}
@@ -101,3 +80,27 @@ export class LoginScreen  extends Component {
     );
   }
 }
+const AppButton = ({ onPress, title }) => (
+  <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
+    <Text style={styles.appButtonText}>{title}</Text>
+  </TouchableOpacity>
+);
+const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 10
+  },
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "#224077",
+    paddingVertical: 10,
+    paddingHorizontal: 12
+  },
+  appButtonText: {
+    fontSize: 15,
+    color: "#fff",
+    alignSelf: "center",
+    textTransform: "uppercase"
+  }
+});

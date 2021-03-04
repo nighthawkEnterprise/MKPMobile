@@ -6,7 +6,7 @@ import axios from 'axios';
 import WarriorCard from '../Cards/WarriorCard';
 import SendSMS from 'react-native-sms';
 import DelayInput from "react-native-debounce-input";
-import {Permissions, Contacts } from 'expo';
+import { Contacts } from 'expo';
 
 export class WarriorScreen extends Component {
     constructor(props) {
