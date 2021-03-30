@@ -2,7 +2,7 @@
   "expo": {
     "name": "MKPMobile",
     "slug": "MKPMobile",
-    "version": "2.1.0",
+    "version": "3.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +17,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mkp.app",
+      "buildNumber": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -25,7 +27,8 @@
     "description": "",
     "android": {
       "package": "com.mkp.app",
-      "permissions": []
+      "permissions": [],
+      "versionCode": 2
     }
   }
 }

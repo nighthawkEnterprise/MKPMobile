@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { Text, View, SafeAreaView, TouchableOpacity, TextInput, Button, Image, StatusBar, StyleSheet} from 'react-native';
-import {Input} from 'react-native-elements';
-import {CustomHeader} from '../index';
 import axios from 'axios';
 
 export class LoginScreen  extends Component {
@@ -16,7 +14,10 @@ export class LoginScreen  extends Component {
   }
 
   login = () => {
-    axios.get(`http://drupal7.mkp.org/api/auth?uname=${this.state.username}&pw=${this.state.password}`)
+    let usernameEncoded = encodeURIComponent(`${this.state.username}`);
+    let passwordEncoded = encodeURIComponent(`${this.state.password}`);
+
+    axios.get(`http://drupal7.mkp.org/api/auth?uname=${usernameEncoded}&pw=${passwordEncoded}`)
     .then(res => {
       console.log('response: ', res.data);
       let loginAttempt = res.data;
@@ -34,9 +35,6 @@ export class LoginScreen  extends Component {
   }
   handlePassword = (e) => {
     this.setState({password: e})
-  }
-  componentDidMount() {
-    console.log("PLATFORM: ", Platform.OS);
   }
   render() {
     StatusBar.setHidden(true, 'none');
