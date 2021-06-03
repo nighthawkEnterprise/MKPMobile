@@ -54,10 +54,10 @@ class MensCard extends Component {
           <UserAvatar style={{alignSelf:'center', borderRadius: 0}} size={122} name={night}  imageStyle={{borderRadius: 0}}/>
       </View>
       <View style={{width: '66.9%', borderBottomWidth: .2, borderColor: 'black',height: 120,flexDirection: 'column', alignItems: 'flex-start',justifyContent: 'space-around',backgroundColor: 'white' }}>
-          <Text style={{color:'#3a3d42', fontFamily: 'sans-serif', fontWeight: 'bold', letterSpacing: 2,  textAlign: 'center', fontSize: 12}}> {title} </Text>
-          <Text style={{color:'black', fontFamily: 'sans-serif', letterSpacing: 1, textAlign: 'center', fontSize: 13}}> {meetingTime} </Text>
-          <Text style={{color:'black', fontFamily: 'sans-serif', letterSpacing: 2, fontSize: 13}}> {frequency} - {night} </Text>
-          <Text style={{color:'black', fontFamilly: 'sans-serif', letterSpacing: 1, textAlign: 'center', fontSize: 13}}> Contact: {contactName} </Text>
+          <Text style={{color:'#3a3d42', fontWeight: 'bold', letterSpacing: 2,  textAlign: 'center', fontSize: 12}}> {title} </Text>
+          <Text style={{color:'black', letterSpacing: 1, textAlign: 'center', fontSize: 13}}> {meetingTime} </Text>
+          <Text style={{color:'black', letterSpacing: 2, fontSize: 13}}> {frequency} - {night} </Text>
+          <Text style={{color:'black', letterSpacing: 1, textAlign: 'center', fontSize: 13}}> Contact: {contactName} </Text>
       </View>
     </View>
     <View style={{flexDirection: 'row', justifyContent: "center", backgroundColor: "white", height: 35, alignItems: 'center'}}>

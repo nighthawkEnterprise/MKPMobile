@@ -56,7 +56,7 @@ export class MensScreen extends Component {
   render() {
     StatusBar.setHidden(true, 'none');
     return (
-      <SafeAreaView style={{ flex: 1}}>
+      <View style={{ flex: 1}}>
       <CustomHeader title="I-Groups" isHome={true} navigation={this.props.navigation}/>
       <View style={{backgroundColor: 'white', padding: 5}}>
         <DelayInput autoCorrect={false} autoCapitalize="none" placeholder="Search I-Groups..."  delayedTimeout={500} style={{height: 50, fontSize: 18,  backgroundColor: '#F5F5F5'}} onChangeText={this.updateSearch} minLength={3} value={this.state.search}/>
@@ -91,7 +91,7 @@ export class MensScreen extends Component {
           )
       }
 
-      </SafeAreaView>
+      </View>
     );
   }
 }

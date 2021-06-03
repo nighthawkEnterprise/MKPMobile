@@ -42,7 +42,7 @@ export class LoginScreen  extends Component {
     Platform.OS === 'ios' ? ios = true : ios= false
     console.log("IOS: ", ios);
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
+      <View style={{ flex: 1, backgroundColor: 'white'}}>
         <View style={{flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5F5F5', height: 200}}>
             <View style={{justifyContent: 'center', alignItems: 'center',padding: 100, width: 300, backgroundColor: 'white'}}>
               <Image source={require('../images/MKP.jpg')} />
@@ -74,7 +74,7 @@ export class LoginScreen  extends Component {
             </View>
 
       </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
